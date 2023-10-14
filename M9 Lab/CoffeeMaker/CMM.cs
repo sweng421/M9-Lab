@@ -19,16 +19,18 @@ namespace M9_Lab
          */
         public CMM(String input)
         {
+            Console.WriteLine("****************************************************");
             Console.WriteLine("Available coffee options:");
-            Console.WriteLine("\t\t\t0: Regular\n\t\t\t1: Mocha\n\t\t\t2: Cappuccino");
-            Console.WriteLine("***Additional programs can be installed via usb***");
-            Console.WriteLine("\t\t\t3:Espresso or Latte\n");
+            Console.WriteLine("\t\t\t0: Regular\t$2\n\t\t\t1: Mocha\t$4");
+            Console.WriteLine("\t\t\t2: Cappuccino\t$3");
+            Console.WriteLine("\n***Additional programs can be installed via usb***");
+            Console.WriteLine("\t\t\t3:Espresso or Latte\t$5\n");
             RunCoffeeProgram(input);
         }
         public void ComputePrice()
         {
             Console.WriteLine("\nTotal price: $" + ComputePrice(coffeeIFs.Last()) + "\n");
-            Console.WriteLine("**********************************************************");
+            Console.WriteLine("****************************************************\n\n");
         }
 
         /*
@@ -114,8 +116,10 @@ namespace M9_Lab
 
             if (input == 'y' || input == 'Y')
             {
-                Console.WriteLine("\nCondiments available:");
-                Console.WriteLine("\t\t1: Cream\n\t\t2: Vanilla\n\t\t3: Chocolate");
+                Console.WriteLine("\n\n********************************************");
+                Console.WriteLine("Condiments available:");
+                Console.WriteLine("\t\t1: Cream\t$0.25\n\t\t2: Vanilla\t$0.5");
+                Console.WriteLine("\t\t3: Chocolate\t$1");
                 int condimentNum = 1;
                 do
                 {
