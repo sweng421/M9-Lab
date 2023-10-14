@@ -15,23 +15,20 @@ namespace M9_Lab
         AbstractLoadableProgram newProgram = null;
 
         /*
-         * Run the program with as little input
-         * from user to begin with.
-         * Display menu and let user pick coffee type
-         * and condiments.
+         * Display menu and let user pick condiments.
          */
-        public CMM()
+        public CMM(String input)
         {
-            String coffeeInput;
             Console.WriteLine("Available coffee options:");
-            Console.WriteLine("\t\t\t1: Regular\n\t\t\t2: Mocha\n\t\t\t3: Cappuccino");
-            Console.WriteLine("\n***Additional programs can be installed via usb***\n");
-            coffeeInput = Console.ReadLine();
-            RunCoffeeProgram(coffeeInput);
+            Console.WriteLine("\t\t\t0: Regular\n\t\t\t1: Mocha\n\t\t\t2: Cappuccino");
+            Console.WriteLine("***Additional programs can be installed via usb***");
+            Console.WriteLine("\t\t\t3:Espresso or Latte\n");
+            RunCoffeeProgram(input);
         }
         public void ComputePrice()
         {
             Console.WriteLine("\nTotal price: $" + ComputePrice(coffeeIFs.Last()) + "\n");
+            Console.WriteLine("**********************************************************");
         }
 
         /*
