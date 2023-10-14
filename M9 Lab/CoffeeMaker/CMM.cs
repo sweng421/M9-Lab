@@ -17,7 +17,7 @@ namespace M9_Lab
         /*
          * Run the program with as little input
          * from user to begin with.
-         * Display menu and let user coffee
+         * Display menu and let user pick coffee type
          * and condiments.
          */
         public CMM()
