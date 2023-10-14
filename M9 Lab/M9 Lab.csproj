@@ -43,14 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoffeeMaker\CappuccinoProgram.cs" />
+    <Compile Include="CoffeePrograms\CappuccinoProgram.cs" />
     <Compile Include="CoffeeMaker\CMM.cs" />
     <Compile Include="CoffeeMaker\ICMM.cs" />
-    <Compile Include="CoffeeMaker\MochaProgram.cs" />
-    <Compile Include="CoffeeMaker\RegularProgram.cs" />
+    <Compile Include="CoffeePrograms\MochaProgram.cs" />
+    <Compile Include="CoffeePrograms\RegularProgram.cs" />
     <Compile Include="Coffee\AbstractCoffeeWrapper.cs" />
     <Compile Include="Coffee\Cappuccino.cs" />
     <Compile Include="Coffee\CoffeeIF.cs" />
+    <Compile Include="CoffeePrograms\AbstractCoffeeProgram.cs" />
     <Compile Include="Coffee\CoffeeWrapper.cs" />
     <Compile Include="Coffee\Espresso.cs" />
     <Compile Include="Coffee\Latte.cs" />
@@ -61,11 +62,14 @@
     <Compile Include="Condiment\Cream.cs" />
     <Compile Include="Condiment\Vanilla.cs" />
     <Compile Include="LoadablePrograms\AbstractLoadableProgram.cs" />
+    <Compile Include="LoadablePrograms\EspressoProgram.cs" />
+    <Compile Include="LoadablePrograms\LatteProgram.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

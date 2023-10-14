@@ -1,13 +1,13 @@
-﻿namespace M9_Lab.LoadablePrograms
+﻿namespace M9_Lab.CoffeePrograms
 {
-    public abstract class AbstractLoadableProgram
+    public abstract class AbstractCoffeeProgram
     {
         private CMM coffeeMaker;
         public void SetCoffeeMaker(CMM coffeeMaker)
-        { 
+        {
             this.coffeeMaker = coffeeMaker;
         }
-        public CMM GetCoffeeMaker() 
+        public CMM GetCoffeeMaker()
         {
             return coffeeMaker;
         }

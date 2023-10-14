@@ -1,31 +1,31 @@
 ﻿using System;
 
-namespace M9_Lab.CoffeeMaker
+namespace M9_Lab.CoffeePrograms
 {
-    public class CappuccinoProgram : CMM
+    public class CappuccinoProgram : AbstractCoffeeProgram
     {
         public override void RunCoffeeProgram(string str)
         {
+            Console.Write("LED Value: ");
             SetLEDNumber(1);
             SetLEDNumber(2);
-            base.RunCoffeeProgram(str);
             SetGrindingTime(6);
             SetTemperature(180);
+            GetCoffeeMaker().Done();
         }
         public override void SetGrindingTime(int secs)
         {
-            Console.WriteLine("\n\n**Grinding coffee**");
-            Console.WriteLine("Total time: 8 seconds");
+            GetCoffeeMaker().SetGrindingTime(secs);
         }
 
         public override void SetLEDNumber(int num)
         {
-            base.SetLEDNumber(num);
+            GetCoffeeMaker().SetLEDNumber(num);
         }
 
         public override void SetTemperature(int degrees)
         {
-            Console.WriteLine("\nWater temperature: 180 degrees Fahrenheit.");
+            GetCoffeeMaker().SetTemperature(degrees);
         }
     }
 }

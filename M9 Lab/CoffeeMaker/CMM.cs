@@ -1,15 +1,18 @@
 ﻿using M9_Lab.Coffee;
+using M9_Lab.CoffeePrograms;
 using M9_Lab.Condiment;
+using M9_Lab.LoadablePrograms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace M9_Lab
 {
-    public abstract class CMM : ICMM
+    public class CMM : ICMM
     {
         IList<CoffeeIF> coffeeIFs = new List<CoffeeIF>();
-        List<int> ledVals = new List<int>();
+        AbstractCoffeeProgram coffeeProgram = null;
+        AbstractLoadableProgram newProgram = null;
 
         /*
          * Run the program with as little input
@@ -40,16 +43,6 @@ namespace M9_Lab
         {
             String var = cif.ToString();
             Type type = cif.GetType();
-
-            /*
-            if (type == null)
-            {
-                foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    type = asm.GetType(coffeeIFs.ElementAt(length).ToString());
-                }
-            }
-            */
 
             if (type == typeof(Regular))
             {
@@ -95,54 +88,34 @@ namespace M9_Lab
         public virtual void RunCoffeeProgram(String str)
         {
             Type type = Type.GetType("M9_Lab.Coffee." + str);
-            CoffeeIF coffee = null;
+            Type program;
+
+            if (str.Equals("Regular") || str.Equals("Mocha") || str.Equals("Cappuccino"))
+                program = Type.GetType("M9_Lab.CoffeePrograms." + str + "Program");
+            else    
+                program = Type.GetType("M9_Lab.LoadablePrograms." + str + "Program");
+            
+            if (program.BaseType.Equals(typeof(AbstractCoffeeProgram)))
+            {   
+                coffeeProgram = (AbstractCoffeeProgram)Activator.CreateInstance(program);
+                coffeeProgram.SetCoffeeMaker(this);
+                
+            }
+            else
+            {
+                newProgram = (AbstractLoadableProgram)Activator.CreateInstance(program);
+                newProgram.SetCoffeeMaker(this);
+            }
 
             if (type != null)
             {
-                coffee = (CoffeeIF)Activator.CreateInstance(type);
-                if (coffee != null)
-                {
-                    SetCoffee(coffee);
-                }
-            }
-            /*
-            else
-            {
-                foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    type = asm.GetType(str);
-                    if (type != null)
-                    {
-                        break;
-                    }
-                }
-                coffee = (CoffeeIF)Activator.CreateInstance(type);
-
-                if (coffee != null)
-                {
-                    SetCoffee(coffee);
-                    Console.WriteLine(coffee + " has been added to list");
-                }
-            }
-            */
-
-            int index = 0;
-            int iteration = ledVals.Count - 2;
-
-            foreach (int vals in ledVals)
-            {
-                if (index == iteration)
-                    Console.Write("\nCoffee Maker LED Value: " + vals + ": ");
-                else if (index == iteration + 1)
-                    Console.WriteLine(vals + "\n\n");
-
-                index++;
+                SetCoffee((CoffeeIF)Activator.CreateInstance(type));
             }
 
             char input;
-            Console.WriteLine("Add condiment? (Y/N)");
+            Console.Write("Add condiment? (Y/N) ");
             input = Console.ReadKey().KeyChar;
-            
+
             if (input == 'y' || input == 'Y')
             {
                 Console.WriteLine("\nCondiments available:");
@@ -153,33 +126,25 @@ namespace M9_Lab
                     Console.WriteLine("\nEnter condiment " + condimentNum + ":");
                     String condimentType = Console.ReadLine();
                     Type typeOfCondiment = Type.GetType("M9_Lab.Condiment." + condimentType);
-                    CondimentIF condiment = null;
 
                     if (typeOfCondiment != null)
                     {
-                        condiment = (CondimentIF)Activator.CreateInstance(typeOfCondiment);
-                        if (condiment != null)
-                        {
-                            addCondiment(condiment);
-                        }
+                        addCondiment((CondimentIF)Activator.CreateInstance(typeOfCondiment));
                     }
-                    /*
-                    else
-                    {
-                        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-                        {
-                            typeOfCondiment = asm.GetType(condimentType);
-                            if (typeOfCondiment != null)
-                                condiment = (CondimentIF)Activator.CreateInstance(typeOfCondiment);
-                        }
-                    }
-                    */
-                    Console.WriteLine("Add more? (Y/N)");
+
+                    Console.Write("Add more? (Y/N) ");
                     input = Console.ReadKey().KeyChar;
                     condimentNum++;
-                } while (input == 'y' || input == 'Y');
-            }
 
+                } while (input == 'y' || input == 'Y');
+
+                Console.WriteLine("\n");
+
+                if (coffeeProgram != null)
+                    coffeeProgram.RunCoffeeProgram(str);
+                else
+                    newProgram.RunCoffeeProgram(str);
+            }
         }
         public void addCondiment(CondimentIF condiment)
         {
@@ -188,16 +153,23 @@ namespace M9_Lab
         
         public virtual void SetLEDNumber(int num)
         {
-            ledVals.Add(num);
+            Console.Write(num);
         }
         public void Done()
         {
+            Console.Write("\nCoffee ready!\nLed Value: ");
+            SetLEDNumber(0);
+            Console.WriteLine("\n");
             ComputePrice();
         }
-        public abstract void SetGrindingTime(int secs);
-        public abstract void SetTemperature(int degrees);
-        
-
-       
+        public void SetGrindingTime(int secs)
+        {
+            Console.WriteLine("\n\n**Grinding coffee**");
+            Console.WriteLine("Total time: " + secs + " seconds");
+        }
+        public void SetTemperature(int degrees)
+        {
+            Console.WriteLine("\nWater temperature: " + degrees + " degrees Fahrenheit.");
+        } 
     }
 }

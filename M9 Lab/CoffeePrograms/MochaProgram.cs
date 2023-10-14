@@ -1,33 +1,31 @@
 ﻿using System;
 
-namespace M9_Lab.CoffeeMaker
+namespace M9_Lab.CoffeePrograms
 {
-    public class MochaProgram : CMM
+    public class MochaProgram : AbstractCoffeeProgram
     {
         public override void RunCoffeeProgram(string str)
         {
+            Console.Write("LED Value: ");
             SetLEDNumber(1);
             SetLEDNumber(1);
-            base.RunCoffeeProgram(str);
             SetGrindingTime(8);
             SetTemperature(150);
-            base.Done();
+            GetCoffeeMaker().Done();
         }
-
         public override void SetGrindingTime(int secs)
         {
-            Console.WriteLine("\n\n**Grinding coffee**");
-            Console.WriteLine("Total time: 8 seconds");
+            GetCoffeeMaker().SetGrindingTime(secs);
         }
 
         public override void SetLEDNumber(int num)
         {
-            base.SetLEDNumber(num);
+            GetCoffeeMaker().SetLEDNumber(num);
         }
 
         public override void SetTemperature(int degrees)
         {
-            Console.WriteLine("\nWater temperature: 150 degrees Fahrenheit.");
+            GetCoffeeMaker().SetTemperature(degrees);
         }
     }
 }
