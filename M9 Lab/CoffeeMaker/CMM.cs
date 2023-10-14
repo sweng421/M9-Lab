@@ -38,7 +38,6 @@ namespace M9_Lab
          */
         public double ComputePrice(CoffeeIF cif)
         {
-            String var = cif.ToString();
             Type type = cif.GetType();
 
             if (type == typeof(Regular))
